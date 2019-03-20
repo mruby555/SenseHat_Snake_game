@@ -16,7 +16,7 @@ class snakeGame():
 	
 	#The __init__ method is called as soon as a snake instance is created. (This is
 	#	accomplished by snake = snake(difficulty=diff) on line 175.)
-	def __init__(self, bg_color = (0,0,0), snake_color = (0,255,0), \
+	def __init__(self, bg_color = (0,0,0), snake_color = (255,255,255), \
 		food_color = (0,255,0), difficulty = 'easy'):
 		
 		#We used keyword parameters to define this method.  That means we can call it
