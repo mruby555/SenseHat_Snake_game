@@ -45,7 +45,7 @@ class snakeGame():
         for pixel in self.tail:
             sense.set_pixel(pixel[0],pixel[1],self.snake_color)
 		
-		self.createFood()                   #This method places food randomly					
+        self.createFood()                   #This method places food randomly					
         self.score = 0                      #Initializes score to zero
         
         #The following listens for joystick presses and calls move method.
