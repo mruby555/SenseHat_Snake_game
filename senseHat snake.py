@@ -8,7 +8,7 @@ from time import sleep						#Allows us to pause our program
 #This is called a class.  It is like a blueprint for creating objects.
 #The following link provides a detailed but advanced explanation of classes in python:
 # https://www.python-course.eu/python3_object_oriented_programming.php
-class snake():
+class snakeGame():
 	
 	#All of the following def statements are called methods.  They are very similar
 	#	to functions except they are called inside classes and the first argument is
@@ -17,7 +17,7 @@ class snake():
 	#The __init__ method is called as soon as a snake instance is created. (This is
 	#	accomplished by snake = snake(difficulty=diff) on line 175.)
 	def __init__(self, bg_color = (0,0,0), snake_color = (0,255,0), \
-		food_color = (0,255,0), difficulty = 'easy')
+		food_color = (0,255,0), difficulty = 'easy'):
 		
 		#We used keyword parameters to define this method.  That means we can call it
 		#	with only the parameters we want to change.  The others will be automatically
@@ -31,8 +31,8 @@ class snake():
 	
 		#The following are called dictionaries.  We use them to change speed setting
 		#	and score multiplier according to difficulty.
-		speed = {'easy': 0.5,'medium': 0.3, 'hard': 0.1}
-		multiplier = {'easy': 0.5, 'medium': 1, 'hard': 2}
+		self.speed = {'easy': 0.5,'medium': 0.3, 'hard': 0.1}
+		self.multiplier = {'easy': 0.5, 'medium': 1, 'hard': 2}
 	
 	#Method to initialize game.  This doesn't run until we call 'snake.startGame()'	
 	def startGame(self):
@@ -134,8 +134,8 @@ class snake():
 				sleep(0.2)
 				sense.set_pixel(snakehead[0], snakehead[1], 255, 0, 0)
 				sleep(0.2)
-			sense.show_message("GAME OVER", scroll_speed = 0.01)
-			sense.show_message("Score = " + str(self.score), scroll_speed = 0.01)
+			sense.show_message("GAME OVER", scroll_speed = 0.05)
+			sense.show_message("Score = " + str(self.score), scroll_speed = 0.05)
 			return False
 			
 		else:
@@ -188,27 +188,28 @@ if __name__ == "__main__":
 	#	or down, asks user if script should quit.  After setting difficulty, begins 
 	#	game with difficulty settings.
 	while running:
-		sense.show_message("PRESS UP FOR HARD, RIGHT FOR MEDIUM, DOWN FOR EASY", scroll_speed = 0.01)
+		sense.show_message("PRESS UP FOR HARD, RIGHT FOR MEDIUM, DOWN FOR EASY", scroll_speed = 0.05)
 		event = sense.stick.wait_for_event(emptybuffer=True)
-		if event.difficulty == 'up':
+		if event.direction == 'up':
 			diff = 'hard'
 		elif event.direction == 'right':
 			diff = 'medium'
 		elif event.direction == 'down':
 			diff = 'easy'
 		else:
-			sense.show_message("Would you like to exit? Press UP for yes, DOWN for no.")
+			sense.show_message("WOULD YOU LIKE TO EXIT? PRESS UP FOR yes, DOWN FOR NO.", scroll_speed = 0.05)
 			event = sense.stick.wait_for_event(emptybuffer=True)
 			if event.direction == 'up':
 				running = False
+				break
 			else:
 				continue
 	
-		sense.show_message("Difficulty: " + difficulty.upper())
-		sense.show_message("PRESS JOY TO BEGIN")
+		sense.show_message("Difficulty: " + diff.upper(), scroll_speed = 0.05)
+		sense.show_message("PRESS JOY TO BEGIN", scroll_speed = 0.05)
 		event = sense.stick.wait_for_event(emptybuffer=True)
 		if event.action == 'pressed':
-			snake = snake(difficulty = diff)
+			snake = snakeGame(difficulty = diff)
 			snake.startGame()
 		
 	
